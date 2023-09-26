@@ -47,8 +47,9 @@ import csv
 import math
 
 allergy_dict = {
-    "есть": 0,
-    "нету": 1
+    "аллергия на кофе": 0,
+    "аллергия на чай": 0.5,
+    "нет аллергии": 1
 }
 sex_dict = {
     "муж": 0,
@@ -60,8 +61,9 @@ tension_dict = {
     "повышенное": 1
 }
 products_dict = {
-    "есть": 0,
-    "нету": 1
+    "есть чай и кофе": 0,
+    "есть чай": 0.5,
+    "есть кофе": 1
 }
 health_dict = {
     "здоров": 0,
@@ -110,9 +112,11 @@ def load_data(filename):
         csv_reader = csv.reader(file)
         for row in csv_reader:
             row = convert_data_to_numbers(row)
-            dataset.append([float(row[0]), float(row[1]), float(row[2]),
+            dataset.append([float(row[0]), float(int(row[1])/100), float(row[2]),
                             float(row[3]), float(row[4]), float(row[5]),
-                            row[6]])
+                            float(int(row[6])/24.0),row[7]])
+            #Входящие данные
+            #Аллергия, возраст, пол, давление, самочувствие, наличие продукта, кол-во часов сна, предпочтение
     return dataset
 
 
